@@ -1,29 +1,5 @@
-function! Repl_start()
-    if exists("b:repl_cmd")
-        let repl_cmd = b:repl_cmd
-        new
-        let g:repl_id = termopen(repl_cmd, {'name': 'repl'} )
-    endif
-    if exists("b:repl_syntax")
-        exe "runtime! " . b:repl_syn
-    endif
-endfunction
-
-function! Repl_send(tosend)
-    call jobsend(g:repl_id, add(a:tosend, ''))
-endfunction
-
-function! Repl_line()
-    let tosend = [getline('.')]
-    call Repl_send(tosend)
-endfunction
-
-function! Repl_quit()
-    call Repl_send([b:repl_quit])
-endfunction
-
-function! Repl_file()
-    let repl_load_file = b:repl_file . "(\"" . expand("%") . "\")"
-    call Repl_send([repl_load_file])
-endfunction
-
+map <Plug>Repl_start :call repl#Repl_start()<CR>
+map <Plug>Repl_line :call repl#Repl_line()<CR>
+map <Plug>Repl_down :call repl#Repl_down()<CR>
+map <Plug>Repl_quit :call repl#Repl_quit()<CR>
+map <Plug>Repl_file :call repl#Repl_file()<CR>
